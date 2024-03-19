@@ -1,0 +1,29 @@
+vars:
+  core: core
+  external: ext
+  observability: obs
+  domain: dev-cluster.local
+
+pki:
+  rootCaName: root-ca
+  rootCertName: root-cert
+  selfSignedCaName: ca
+  selfSignedBundleName: bundle
+  certManagerNamespace: core-cert-manager
+  trustManagerNamespace: core-trust-manager
+
+istio:
+  istioNamespace: core-istio
+  gatewayName: default-gateway
+  gatewayNamespace: core-istio
+
+gitea:
+  namespace: ext-gitea
+  # NOTE: `admin` is reserved
+  username: gitea-admin
+  # NOTE: min of 8 characters
+  password: "admin123!"
+  email: admin@dev-cluster.local
+
+woodpecker:
+  namespace: ext-woodpecker

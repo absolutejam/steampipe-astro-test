@@ -1,0 +1,31 @@
+version: "3"
+
+tasks:
+  infra:cluster:up:
+    desc: Spin up local k3d cluster
+    cmd: k3d cluster create --config ./infra/k3d.yaml
+
+  infra:cluster:down:
+    desc: Tear down local k3d cluster
+    cmd: k3d cluster rm --config ./infra/k3d.yaml
+
+  infra:manifests:build:
+    desc: Build demo k8s manifests
+    dir: infra/k8s-resources
+    cmds:
+      - bun run src/main.ts
+      - ls dist
+
+  infra:manifests:deploy:
+    desc: Deploy k8s manifests
+    dir: infra/k8s-resources
+    cmds:
+      - kubectl --context k3d-demo apply -f dist
+
+  steampipe:service:start:
+    desc: Run steampipe in 'service' mode
+    cmd: steampipe service start --database-password ci-password
+
+  steampipe:service:stop:
+    desc: Stop steampipe service
+    cmd: steampipe service stop

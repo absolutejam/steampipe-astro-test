@@ -1,0 +1,19 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { cloudflareZones } from "@/data/queries";
+
+---
+
+<StarlightPage 
+  frontmatter={{ 
+    title: "Cloudflare Zones",
+  }}
+>
+  {cloudflareZones.map((zone) => {
+    return (
+        <h2>{zone.name}</h2>
+        <pre>{JSON.stringify(zone, null, 2)}</pre>
+    )
+  })}
+
+</StarlightPage>

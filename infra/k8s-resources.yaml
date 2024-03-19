@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stg-payments-db
+  annotations:
+    "docs/team": payments
+    "docs/component": db
+    "docs/email": payments-team@crashloopbackoff.dev
+    "docs/repo": gitlab.crashloopbackoff.dev/payments/db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: stg-payments-db
+  labels:
+    app: postgres
+    component: db
+
+  annotations:
+    "docs/team": payments
+    "docs/component": db
+    "docs/email": payments-team@crashloopbackoff.dev
+    "docs/repo": gitlab.crashloopbackoff.dev/payments/db
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: namespaced-deploy
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: namespaced-deploy
+    spec:
+      containers:
+        - name: dummy
+          image: nginx:latest
+#-------------------------------------------------------------------------------
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stg-payments-backend
+  annotations:
+    "docs/team": payments
+    "docs/component": backend
+    "docs/email": payments-team@crashloopbackoff.dev
+    "docs/repo": gitlab.crashloopbackoff.dev/payments/backend
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stg-payments-reprt
+  annotations:
+    "docs/team": payments
+    "docs/component": reporting
+    "docs/repo": gitlab.crashloopbackoff.dev/payments/reporting
+#-------------------------------------------------------------------------------

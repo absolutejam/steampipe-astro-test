@@ -1,0 +1,38 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { kubernetesNamespacesByTeam } from "@/data/queries";
+---
+
+<StarlightPage 
+  frontmatter={{ 
+    title: "Kubernetes namespaces",
+  }}
+>
+  {kubernetesNamespacesByTeam.map(({ team, data }) => {
+    return (
+        <h2>Team: {team}</h2>
+
+        <h3>Namespaces</h3>
+        <table>
+        <tr>
+          <th>Name</th>
+          <th>Component</th>
+          <th>Repo</th>
+        </tr>
+
+        {data.map(({name, annotations}) => {
+          return (
+            <tr>
+              <td>{name}</td>
+              <td>{annotations["docs/component"]}</td>
+              <td>{annotations["docs/repo"]}</td>
+            </tr>
+          )
+        })}
+        </table>
+
+        <hr />
+    )
+  })}
+
+</StarlightPage>

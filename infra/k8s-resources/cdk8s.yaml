@@ -1,0 +1,4 @@
+language: typescript
+app: bunx main.ts
+imports:
+  - k8s
